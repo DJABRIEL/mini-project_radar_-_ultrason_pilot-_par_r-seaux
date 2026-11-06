@@ -75,6 +75,7 @@ void ID_SCREEN_00__ID_ROTARY_00__WM_NOTIFICATION_VALUE_CHANGED(APPW_ACTION_ITEM 
   Val = APPW_GetValue(ID_SCREEN_00, ID_ROTARY_00, NULL);
   //Val vaut une valeur entre -300 et 300
   //code à exécuter à mettre ici
+	
 }
 
 /*********************************************************************
