@@ -50,10 +50,10 @@ void Init_Ethernet (void) {
   netInitialize ();
  
   // Initialize UDP socket and open port 2000
-  //udp_sock = netUDP_GetSocket (udp_cb_func);
-  //if (udp_sock > 0) {
-  //  netUDP_Open (udp_sock, 2000);
-  //}
+  udp_sock = netUDP_GetSocket (udp_cb_func);
+  if (udp_sock > 0) {
+    netUDP_Open (udp_sock, 4000);
+  }
 }
 
 //! [code_UDP_Socket]
