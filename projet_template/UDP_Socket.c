@@ -52,7 +52,7 @@ void Init_Ethernet (void) {
   // Initialize UDP socket and open port 2000
   udp_sock = netUDP_GetSocket (udp_cb_func);
   if (udp_sock > 0) {
-    netUDP_Open (udp_sock, 4000);
+    netUDP_Open (udp_sock, 4000);  // On va utiliser le port 4000 pour la communication
   }
 }
 

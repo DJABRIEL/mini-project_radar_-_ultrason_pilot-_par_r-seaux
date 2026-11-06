@@ -22,8 +22,13 @@ static void Thread_Test (void *argument)
 
   // Initialisations propres à la tâche (si besoin) ici
 	RCC ->AHB1ENR |= (1 << 8);//activation GPIOI
-	RCC ->AHB2ENR |= (1 << 29);//activation DAC
 	GPIOI->MODER |= (1 << 2);//mode GPIOI 	
+	
+	//activation DAC
+	RCC ->APB1ENR |= (1 << 29);//activation DAC
+	RCC ->AHB1ENR |= (1 << 0);// activation GPIOA
+	GPIOA->MODER 	|= (3<<8);//activation PA4
+	DAC ->CR 			|= (1<<0);//mode sortie pa4 
 	
 	
 
