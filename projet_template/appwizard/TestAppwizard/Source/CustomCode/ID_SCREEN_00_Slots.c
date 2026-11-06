@@ -45,6 +45,8 @@ void ID_SCREEN_00__ID_SWITCH_00__WM_NOTIFICATION_VALUE_CHANGED(APPW_ACTION_ITEM 
   int Val;
   Val = APPW_GetValue(ID_SCREEN_00, ID_SWITCH_00, NULL);
   //Val vaut 0 ou 1
+	if (Val == 1) GPIOI->ODR |= (1 << 1);
+	else GPIOI->ODR &= ~(1 << 1);
   //code à exécuter à mettre ici
 }
 

@@ -3,7 +3,6 @@
 extern void configuration_overclock(void);
 extern int Init_GUIThread (void);
 extern void Init_Ethernet (void);
-
 #ifdef _RTE_
 #include "RTE_Components.h"             // Component selection
 #endif
@@ -16,15 +15,21 @@ extern void Init_Ethernet (void);
  *---------------------------------------------------------------------------*/
 osThreadId_t tid_Test;
 
+
 static void Thread_Test (void *argument)
 {
   (void)argument;
 
   // Initialisations propres à la tâche (si besoin) ici
+	RCC ->AHB1ENR |= (1 << 8);
+	GPIOI->MODER |= (1 << 2);
+	
+	
 
   while (1)
   {
     // Votre boucle de test ici (mesure de distance, balayage du servo, etc.)
+				
 
     osDelay(100);   // période de la boucle : 100 ms
   }
