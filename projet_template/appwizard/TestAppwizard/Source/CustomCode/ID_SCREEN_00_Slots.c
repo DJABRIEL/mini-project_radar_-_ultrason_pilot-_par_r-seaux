@@ -73,9 +73,15 @@ void ID_SCREEN_00__ID_SLIDER_00__WM_NOTIFICATION_VALUE_CHANGED(APPW_ACTION_ITEM 
 void ID_SCREEN_00__ID_ROTARY_00__WM_NOTIFICATION_VALUE_CHANGED(APPW_ACTION_ITEM * pAction, WM_HWIN hScreen, WM_MESSAGE * pMsg, int * pResult) {
   int Val;
   Val = APPW_GetValue(ID_SCREEN_00, ID_ROTARY_00, NULL);
-  //Val vaut une valeur entre -300 et 300
-  //code à exécuter à mettre ici
-	
+  
+  // Calcul du rapport cyclique (CCR1) en fonction de la valeur de la molette (-300 à 300)
+  double ccr_val = (double)(Val + 300) * 40000.0 / 600.0;
+  
+  // Modification du rapport cyclique en temps réel
+  TIM5->CCR1 = (uint32_t)ccr_val;
+  
+  // S'assurer que le timer est bien activé
+  TIM5->CR1 |= (1 << 0);
 }
 
 /*********************************************************************
