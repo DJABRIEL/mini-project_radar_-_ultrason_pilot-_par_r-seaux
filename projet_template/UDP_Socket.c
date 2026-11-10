@@ -11,37 +11,53 @@
 #include "stm32f7xx.h"                  // Device header
 #include "AppWizard.h"
 #include <stdio.h>
- 
-int32_t udp_sock;                       // UDP socket handle
+#include <string.h> 
+#include <stdlib.h>
+
+int32_t udp_sock;    //crée le sock                   // UDP socket handle
  
 // Notify the user application about UDP socket events.
-uint32_t udp_cb_func (int32_t socket, const  NET_ADDR *addr, const uint8_t *buf, uint32_t len) {
+uint32_t udp_cb_func (int32_t socket, const  NET_ADDR *addr, const uint8_t *buf, uint32_t len) /* recevoir l'info de la carte */ {
 	
   // Data received
-  /* Example
-  if ((buf[0] == 0x01) && (len == 2)) {
-    // Switch LEDs on and off
-  }
-  */
+   
+    // IPv4 address: 192.168.0.154  Envoi vers la rasberry(le client)
+    uint8_t *sendbuf;
+		char str[32]; 	// On declare une chaine de caractere 
+    sendbuf = netUDP_GetBuffer (len);
+		// transformer le buffer recu en chaine de caractere 
+		for(uint32_t i=0; i<len;i++)
+		{	
+			str[i] = buf[i];
+		}
+	 str[len] = '\0'; // caractère de fin de chaine indispensale pour le strcmp
+		
+		// Comparer le mot angle 
+		if (strncmp(str,"angle",5)== 0 ){
+			//Extrait la valeur après le mot angle 
+			int angle = atoi(&str[5]);
+			// code servomoteur
+		}
+		
+		
+		// Echo  a la rasberry 
+		if (sendbuf != NULL){
+		for(int i=0; i<len;i++){
+			
+			sendbuf[i] = buf[i];
+		} 
+		
+			// repondre à l'expédidteur
+		netUDP_Send(udp_sock, addr, sendbuf, len); 
+   }
+  
   return (0);
+	
 }
  
 // Send UDP data to destination client.
 void send_udp_data (void) {
- 
-  if (udp_sock > 0) {
-    /* Example
-    // IPv4 address: 192.168.0.1
-    NET_ADDR addr = { NET_ADDR_IP4, 2000, 192, 168, 0, 1 };
-    uint8_t *sendbuf;
- 
-    sendbuf = netUDP_GetBuffer (2);
-    sendbuf[0] = 0x01;
-    sendbuf[1] = 0xAA;
- 
-    netUDP_Send (udp_sock, &addr, sendbuf, 2);
-    */
-  }
+
 }
  
 // Allocate and initialize the socket.
@@ -56,4 +72,5 @@ void Init_Ethernet (void) {
   }
 }
 
+ // Pour voir que le message s'envoie bien en UDP vers ma carte a entrer sur la rasberry 
 //! [code_UDP_Socket]

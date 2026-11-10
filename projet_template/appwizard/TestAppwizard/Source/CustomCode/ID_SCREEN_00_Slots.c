@@ -73,16 +73,17 @@ void ID_SCREEN_00__ID_SLIDER_00__WM_NOTIFICATION_VALUE_CHANGED(APPW_ACTION_ITEM 
 void ID_SCREEN_00__ID_ROTARY_00__WM_NOTIFICATION_VALUE_CHANGED(APPW_ACTION_ITEM * pAction, WM_HWIN hScreen, WM_MESSAGE * pMsg, int * pResult) {
   int Val;
   Val = APPW_GetValue(ID_SCREEN_00, ID_ROTARY_00, NULL);
-  
-  // Calcul du rapport cyclique (CCR1) en fonction de la valeur de la molette (-300 à 300)
-  double ccr_val = (double)(Val + 300) * 40000.0 / 600.0;
-  
-  // Modification du rapport cyclique en temps réel
-  TIM5->CCR1 = (uint32_t)ccr_val;
-  
-  // S'assurer que le timer est bien activé
-  TIM5->CR1 |= (1 << 0);
+  //Val vaut une valeur entre -300 et 300
+  //code à exécuter à mettre ici
+// Configuration de la période (à faire idéalement dans l'init, mais fonctionnel ici)
+
+    // Calcul du rapport cyclique basé sur ARR + 1 (soit 40000 pas au total)
+    int ccr_val = (Val + 300) * 40000 / 600;
+
+    // Modification du rapport cyclique en temps réel
+    TIM5->CCR4 = ccr_val;
 }
+
 
 /*********************************************************************
 *
@@ -97,7 +98,7 @@ void ID_SCREEN_00__APPW_NOTIFICATION_INITDIALOG__ID_TIMER_00__APPW_JOB_START(APP
 
 /*********************************************************************
 *
-*       ID_SCREEN_00__ID_TIMER_00__APPW_NOTIFICATION_TIMER
+*       ID_SCREEN_00__ID_SLIDER_00__APPW_NOTIFICATION_TIMER
 */
 void ID_SCREEN_00__ID_TIMER_00__APPW_NOTIFICATION_TIMER(APPW_ACTION_ITEM * pAction, WM_HWIN hScreen, WM_MESSAGE * pMsg, int * pResult) {
   GUI_USE_PARA(pAction);
