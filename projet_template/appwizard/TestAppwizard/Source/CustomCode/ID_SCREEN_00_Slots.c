@@ -17,9 +17,11 @@ Purpose     : AppWizard managed file, function content could be changed
 #include "Application.h"
 #include "../Generated/Resource.h"
 #include "../Generated/ID_SCREEN_00.h"
+#include <stdio.h>
 
 /*** Begin of user code area ***/
 #include "stm32f7xx.h"                  // Device header
+extern volatile int distance_cm_value;
 
 /*** End of user code area ***/
 
@@ -105,6 +107,10 @@ void ID_SCREEN_00__ID_TIMER_00__APPW_NOTIFICATION_TIMER(APPW_ACTION_ITEM * pActi
   GUI_USE_PARA(hScreen);
   GUI_USE_PARA(pMsg);
   GUI_USE_PARA(pResult);
+	char txt[16];
+  sprintf(txt, "%d cm", distance_cm_value);
+  APPW_SetText(ID_SCREEN_00, ID_TEXT_00, txt);   /* à adapter : nom de votre widget */
+	
 }
 
 /*************************** End of file ****************************/
