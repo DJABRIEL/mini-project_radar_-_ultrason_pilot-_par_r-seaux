@@ -121,11 +121,9 @@ int main(void)
   **********************************/
 
   // Initialiser vos périphériques ici
- Init_Ethernet();
+	Init_Ethernet();
 	PG6_Interrupt_Init();
-  /**********************************
-  Fin Initialisation périphérique
-  **********************************/
+
 
   /**********************************
   Utilisation RTOS (Keil RTX5)
@@ -166,7 +164,7 @@ void PG6_Interrupt_Init(void)
 		
 		RCC->APB1ENR |= (1 << 0);             // horloge TIM2
 		TIM2->PSC = 99;                       // 100 MHz / 100 = 1 MHz -> 1 tick = 1 µs
-		TIM2->ARR = 0xFFFFFFFF;               // compteur 32 bits
+		TIM2->ARR = 0xFFFFFFFF;               // compteur 32 bits ~4M
 		TIM2->EGR |= (1 << 0);                // charge PSC et ARR
 
 		/* Relier la ligne EXTI6 au port G */
