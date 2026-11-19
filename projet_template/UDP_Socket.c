@@ -44,7 +44,7 @@ uint32_t udp_cb_func (int32_t socket, const  NET_ADDR *addr, const uint8_t *buf,
 	 str[len] = '\0'; // caractère de fin de chaine indispensale pour le strcmp
 		
 		// Comparer le mot angle 
-		if (strncmp(str,"angle",5)== 0 ){
+		if (strncmp(str,"ANGLE",5)== 0 ){
 			 // Extrait la valeur après le mot "angle" (atoi ignore l'espace)
     int angle = atoi(&str[5]);
 				sweep_enabled = 0;                  // arrête le balayage automatique
@@ -63,7 +63,7 @@ uint32_t udp_cb_func (int32_t socket, const  NET_ADDR *addr, const uint8_t *buf,
   }
 
 			// code servomoteur
-	if (strncmp(str,"dist",4)== 0 ){
+	if (strncmp(str,"DIST",4)== 0 ){
 			sweep_enabled = 0;  
 		
 			char txt[16];	
